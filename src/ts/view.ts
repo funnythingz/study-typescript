@@ -2,19 +2,19 @@
 
 module GuestBook {
 
-    export class InputView {
+    export class Input {
         $el: JQuery = $('<input type="text" id="input-text">');
     }
 
-    export class PostView {
+    export class Post {
         $el: JQuery = $('<button id="post">Post</button>');
     }
 
-    export class UlView {
+    export class Ul {
         $el: JQuery = $('<ul>');
     }
 
-    export class ListView {
+    export class List {
         $el: JQuery = $('<li>');
     }
 
@@ -22,33 +22,33 @@ module GuestBook {
 
         $el: JQuery = $('<div>');
 
-        inputView = new InputView();
-        postView = new PostView();
-        ulView = new UlView();
+        input = new Input();
+        post = new Post();
+        ul = new Ul();
 
-        private post() {
-            var val: string = this.inputView.$el.val();
+        private update() {
+            var val: string = this.input.$el.val();
 
             if(val !== '') {
-                var listView = new ListView();
-                listView.$el.html(val);
-                this.ulView.$el.prepend(listView.$el);
-                this.inputView.$el.val('');
+                var list = new List();
+                list.$el.html(val);
+                this.ul.$el.prepend(list.$el);
+                this.input.$el.val('');
             }
         }
 
         events() {
-            this.postView.$el.on('click', e => { this.post(); });
-            this.inputView.$el.on('keydown', e => {
+            this.post.$el.on('click', e => { this.update(); });
+            this.input.$el.on('keydown', e => {
                 if(e.keyCode === 13) {
-                    this.post();
+                    this.update();
                 }
             });
         }
 
         render(): JQuery {
             this.events();
-            return this.$el.append(this.inputView.$el, this.postView.$el, this.ulView.$el);
+            return this.$el.append(this.input.$el, this.post.$el, this.ul.$el);
         }
 
     }
