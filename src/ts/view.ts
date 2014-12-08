@@ -26,7 +26,28 @@ module GuestBook {
         postView = new PostView();
         ulView = new UlView();
 
+        private post() {
+            var val: string = this.inputView.$el.val();
+
+            if(val !== '') {
+                var listView = new ListView();
+                listView.$el.html(val);
+                this.ulView.$el.prepend(listView.$el);
+                this.inputView.$el.val('');
+            }
+        }
+
+        events() {
+            this.postView.$el.on('click', e => { this.post(); });
+            this.inputView.$el.on('keydown', e => {
+                if(e.keyCode === 13) {
+                    this.post();
+                }
+            });
+        }
+
         render(): JQuery {
+            this.events();
             return this.$el.append(this.inputView.$el, this.postView.$el, this.ulView.$el);
         }
 
