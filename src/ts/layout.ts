@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-module Study {
+module GuestBook {
 
     export class Layout {
 
